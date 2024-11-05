@@ -24,6 +24,7 @@
       "@routes/*": ["routes/*"],
       "@styles/*": ["styles/*"],
       "@types/*": ["types/*"],
+      "@utils/*": ["utils/*"],
     }
   },
   "include": ["src"],
