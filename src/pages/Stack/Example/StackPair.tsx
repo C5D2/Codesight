@@ -1,6 +1,6 @@
-// src/pages/stack/StackExample.tsx
 import { Button } from '@components/common/Button';
 import styled from '@emotion/styled';
+import { addOpacity } from '@utils/color';
 import { useState } from 'react';
 
 const Container = styled.div`
@@ -28,6 +28,18 @@ const CodeBlock = styled.pre`
   overflow-x: auto;
 `;
 
+const StackWrapper = styled.div`
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: ${props => props.theme.spacing.xl};
+  
+  @media (max-width: ${props => props.theme.breakpoints.md}) {
+    flex-direction: column;
+    align-items: center;
+  }
+`;
+
 const StackContainer = styled.div`
   display: flex;
   flex-direction: column-reverse;
@@ -37,12 +49,17 @@ const StackContainer = styled.div`
   border-radius: 8px;
   padding: ${props => props.theme.spacing.md};
   gap: ${props => props.theme.spacing.sm};
+
+  @media (max-width: ${props => props.theme.breakpoints.md}) {
+    width: 100%;
+    min-height: 300px;
+  }
 `;
 
 const StackItem = styled.div<{ isRemoving?: boolean; isPair?: boolean; }>`
   padding: ${props => props.theme.spacing.md};
   background-color: ${props =>
-    props.isPair ? props.theme.colors.green : props.theme.colors.primary
+    props.isPair ? props.theme.colors.pink : props.theme.colors.primary
   };
   color: white;
   border-radius: 4px;
@@ -83,12 +100,36 @@ const StackItem = styled.div<{ isRemoving?: boolean; isPair?: boolean; }>`
     }
     50% {
       transform: scale(1.2);
-      background-color: ${props => props.theme.colors.green};
+      background-color: ${props => props.theme.colors.pink};
     }
     100% {
       transform: scale(1);
-      background-color: ${props => props.theme.colors.green};
+      background-color: ${props => props.theme.colors.pink};
     }
+  }
+`;
+
+const InputString = styled.div`
+  display: flex;
+  justify-content: center;
+  padding: ${props => props.theme.spacing.sm};
+  gap: ${props => props.theme.spacing.sm};
+  font-size: ${props => props.theme.fontSizes['xxl']};
+  margin-bottom: ${props => props.theme.spacing.lg};
+  flex-wrap: wrap;
+`;
+
+const Char = styled.span<{ isActive: boolean }>`
+  padding: ${props => `${props.theme.spacing.xs} ${props.theme.spacing.md}`};
+  color: ${props => props.isActive ? props.theme.colors.pink : props.theme.colors.text};
+  background-color: ${props => props.isActive ? addOpacity(props.theme.colors.pink, 0.3) : props.theme.colors.gray[100]};
+  border-radius: 5px;
+  font-weight: ${props => props.isActive ? 'bold' : 'normal'};
+  transition: all 0.3s ease;
+
+  @media (max-width: ${props => props.theme.breakpoints.md}) {
+    text-align: center;
+    padding: ${props => props.theme.spacing.sm};
   }
 `;
 
@@ -127,6 +168,8 @@ export const StackPair = () => {
     const nextIndex = currentIndex + 1;
     const char = input[nextIndex];
 
+    setCurrentIndex(nextIndex);
+
     if (stack.length > 0 && stack[stack.length - 1] === char) {
       setMatchingPair(stack.length -1);
       setExplanation(`${char}가 스택의 top과 같으므로 pop 합니다.`);
@@ -141,7 +184,6 @@ export const StackPair = () => {
       setStack(prev => [...prev, char]);
     }
 
-    setCurrentIndex(nextIndex);
     setIsRemoving(false);
     setMatchingPair(null);
   };
@@ -163,6 +205,7 @@ export const StackPair = () => {
 `}
       </CodeBlock>
 
+      <StackWrapper>
       <StackContainer>
         {stack.map((item, index) => (
           <StackItem 
@@ -175,6 +218,18 @@ export const StackPair = () => {
           </StackItem>
         ))}
       </StackContainer>
+
+    <InputString>
+      {input.split('').map((char, index) => (
+        <Char 
+          key={index} 
+          isActive={index === currentIndex}
+        >
+          {char}
+        </Char>
+      ))}
+    </InputString>
+    </StackWrapper>
 
       <InfoText>{explanation}</InfoText>
 
