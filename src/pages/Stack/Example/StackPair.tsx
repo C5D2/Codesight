@@ -63,6 +63,7 @@ const StackItem = styled.div<{ isRemoving?: boolean; isPair?: boolean; }>`
   };
   color: white;
   border-radius: 4px;
+  font-size: ${props => props.theme.fontSizes.xxl};
   text-align: center;
   transition: all 0.5s ease;
   animation: ${ props => {
@@ -139,6 +140,12 @@ const InfoText = styled.div`
   text-align: center;
 `;
 
+const CautionText = styled.p`
+  font-size: ${props => props.theme.fontSizes.md};
+  color: ${props => props.theme.colors.gray[500]};
+  text-align: center;
+`;
+
 const Controls = styled.div`
   display: flex;
   gap: ${props => props.theme.spacing.md};
@@ -151,12 +158,12 @@ export const StackPair = () => {
   const [currentIndex, setCurrentIndex] = useState(-1);
   const [isRemoving, setIsRemoving] = useState<boolean>(false);
   const [matchingPair, setMatchingPair] = useState<number | null>(null);
-  const [explanation, setExplanation] = useState<string>('Start를 눌러주세요');
+  const [explanation, setExplanation] = useState<string>('Start를 눌러주세요.');
   const reset = () => {
     setStack([]);
     setCurrentIndex(-1);
     setMatchingPair(null);
-    setExplanation('Start를 눌러주세요');
+    setExplanation('Start를 눌러주세요.');
   };
 
   const nextStep = async () => {
@@ -180,7 +187,7 @@ export const StackPair = () => {
 
       setStack(prev => prev.slice(0, -1));
     } else {
-      setExplanation(`${char}를 스택에 push 합니다`);
+      setExplanation(`${char}를 스택에 push 합니다.`);
       setStack(prev => [...prev, char]);
     }
 
@@ -231,10 +238,15 @@ export const StackPair = () => {
     </InputString>
     </StackWrapper>
 
-      <InfoText>{explanation}</InfoText>
+      
+      <div>
+        <InfoText>{explanation}</InfoText>
+          {currentIndex >= 0 && (
+          <CautionText>애니메이션이 끝난 후에 버튼을 눌러주세요.</CautionText>)}
+      </div>
 
       <Controls>
-        <Button onClick={nextStep}>
+        <Button onClick={nextStep} disabled={currentIndex === input.length -1}>
           {currentIndex === -1 ? "Start" : "Next"}
         </Button>
         <Button variant="pink" onClick={reset} disabled={currentIndex === -1}>
