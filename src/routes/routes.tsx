@@ -18,6 +18,10 @@ const router = createBrowserRouter([
       }
     ]
   }
-])
+],
+{
+  basename: '/Codesight'
+}
+)
 
 export default router;
