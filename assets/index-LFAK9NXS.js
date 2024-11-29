@@ -307,7 +307,7 @@ gap: ${e=>e.theme.spacing.lg};
 입력값: "baabaa"
 현재 검사 중인 문자: ${r>=0?e[r]:"N/A"}
 현재 스택: [${t.join(", ")}]
-`}),U.jsxs(S1,{children:[U.jsx(x1,{children:t.map((w,S)=>U.jsx(k1,{isPair:S===a||i&&S===t.length-1,isRemoving:i&&S===t.length-1,children:w},S+w))}),U.jsx(E1,{children:e.split("").map((w,S)=>U.jsx(C1,{isActive:S===r,children:w},S))})]}),U.jsxs("div",{children:[U.jsx(P1,{children:s}),r>=0&&U.jsx(_1,{children:"애니메이션이 끝난 후에 버튼을 눌러주세요."})]}),U.jsxs(R1,{children:[U.jsx(Wt,{onClick:h,disabled:r===e.length-1,children:r===-1?"Start":"Next"}),U.jsx(Wt,{variant:"pink",onClick:d,disabled:r===-1,children:"Reset"})]})]})},L1=re.div`
+`}),U.jsxs(S1,{children:[U.jsx(x1,{children:t.map((w,S)=>U.jsx(k1,{isPair:S===a||i&&S===t.length-1,isRemoving:i&&S===t.length-1,children:w},S+w))}),U.jsx(E1,{children:e.split("").map((w,S)=>U.jsx(C1,{isActive:S===r,children:w},S))})]}),U.jsxs("div",{children:[U.jsx(P1,{children:s}),r>=0&&U.jsx(_1,{children:"애니메이션이 끝난 후에 버튼을 눌러주세요."})]}),U.jsxs(R1,{children:[U.jsx(Wt,{onClick:h,children:r===-1?"Start":"Next"}),U.jsx(Wt,{variant:"pink",onClick:d,disabled:r===-1,children:"Reset"})]})]})},L1=re.div`
   display: flex;
   flex-direction: column;
   gap: ${({theme:e})=>e.spacing.lg};
